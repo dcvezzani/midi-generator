@@ -95,6 +95,10 @@ track.recalc_delta_from_times
 
 note_length = seq.note_to_delta('eighth')
 
+chord_pattern = [0, 4, 7, 9]
+chord_pattern = [0, 4, -5, 9]
+chord_pattern = [0, 4, 7, -3]
+
 # 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 
 [60, 65, 58, 63, 56, 61, 54, 59, 64, 57, 62, 55, 60].each do |key|
 # (60...73).each do |key|
@@ -103,13 +107,13 @@ note_length = seq.note_to_delta('eighth')
 
 [0, 2, 4, 5, 7, 9, 11, 12, 14, 12, 11, 9, 7, 5, 4, 2].each do |offset|
 
-  [0, 4, 7, 9].each do |coff|
+  chord_pattern.each do |coff|
     event(track, NoteOn.new(0, key + offset + coff, 127, 0), time)
   end
 
   time += note_length
 
-  [0, 4, 7, 9].each do |coff|
+  chord_pattern.each do |coff|
     event(track, NoteOff.new(0, key + offset + coff, 127, note_length), time)
   end
 
@@ -121,13 +125,13 @@ note_length = seq.note_to_delta('eighth')
 
 end
 
-[0, 4, 7, 9].each do |coff|
+chord_pattern.each do |coff|
   event(track, NoteOn.new(0, key + coff, 127, 0), time)
 end
 
 time += whole_note_length
 
-[0, 4, 7, 9].each do |coff|
+chord_pattern.each do |coff|
   event(track, NoteOff.new(0, key + coff, 127, whole_note_length), time)
 end
 
